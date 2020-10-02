@@ -1,4 +1,3 @@
-var header = document.querySelector('header');
 var main = document.querySelector('main');
 
 var requestURL = 'http://news.re19.ru/api/mobile/lastnews'
@@ -6,79 +5,55 @@ var requestURL = 'http://news.re19.ru/api/mobile/lastnews'
 var request = new XMLHttpRequest();
 request.open('GET', requestURL);
 
-reqest.responseType = 'json';
-request.send();
-request.onload = function(){
-	var id = request.response;
-	populateHeader(id);
-	showId(id);
-}
-
-function populateHeader(jsonObj){
-	var myId = document.createElement('p');
-	myId.textContent = jsonObj['id'];
-	header.appendChild(myId);
-
-	var myTitle = document.createElement('h2');
-	myTitle.textContent = jsonObj['title'];
-	header.appendChild(myTitle);
-}
-
-/*var header = document.querySelector('header');
-var main = document.querySelector('main');
-
-var  requestURL = 'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json';
-
-var request = new XMLHttpRequest();
-request.open('GET', requestURL);
-
 request.responseType = 'json';
 request.send();
 request.onload = function(){
-	var superHeroes = request.response;
-  	populateHeader(superHeroes);
-  	showHeroes(superHeroes);
+	var articles = request.response;
+  	showArticles(articles);
 }
 
-function populateHeader(jsonObj){
-	var myH1 = document.createElement('h1');
-	myH1.textContent = jsonObj['squadName'];
-	header.appendChild(myH1);
-
-	var myPara = document.createElement('p');
-	myPara.textContent = 'Hometown:' + jsonObj['homeTown'] + '//Formed' + jsonObj['formed'];
-	header.appendChild(myPara);
-}
-
-function showHeroes(jsonObj) {
-  var heroes = jsonObj['members'];
+function showArticles(jsonObj) {
+  var articles = jsonObj['data'];
       
-  for (var i = 0; i < heroes.length; i++) {
-    var myArticle = document.createElement('article');
-    var myH2 = document.createElement('h2');
-    var myPara1 = document.createElement('p');
-    var myPara2 = document.createElement('p');
-    var myPara3 = document.createElement('p');
-    var myList = document.createElement('ul');
+  for (var i = 0; i < articles.length; i++) {
+  	var id = document.createElement('p');
+    var title = document.createElement('h2');
+    var description = document.createElement('p');
+    var createdAt = document.createElement('span');
+    var updatedAt = document.createElement('span');
+    var imageLabel = document.createElement('span');
+    var categoryId = document.createElement('span');
+    var sticky = document.createElement('span');
+    var views = document.createElement('span');
+    var publishedAt = document.createElement('span');
+	
 
-    myH2.textContent = heroes[i].name;
-    myPara1.textContent = 'Secret identity: ' + heroes[i].secretIdentity;
-    myPara2.textContent = 'Age: ' + heroes[i].age;
-    myPara3.textContent = 'Superpowers:';
-        
-    var superPowers = heroes[i].powers;
-    for (var j = 0; j < superPowers.length; j++) {
-      var listItem = document.createElement('li');
-      listItem.textContent = superPowers[j];
-      myList.appendChild(listItem);
-    }
 
-    myArticle.appendChild(myH2);
-    myArticle.appendChild(myPara1);
-    myArticle.appendChild(myPara2);
-    myArticle.appendChild(myPara3);
-    myArticle.appendChild(myList);
 
-    main.appendChild(myArticle);
-  }
-}*/
+    id.textContent = articles[i].id;
+    title.textContent = ' Заголовок: ' + articles[i].name;
+    description.textContent = ' Описание: ' + articles[i].description;
+    createdAt.textContent = ' Создано: ' + articles[i].created_at;
+    updatedAt.textContent = ' Обновлено: ' + articles[i].updated_at;
+    imageLabel.textContent = ' ?imageLabel: ' + articles[i].image_label;
+    categoryId.textContent = ' Id категории: ' + articles[i].category_id;
+    sticky.textContent = ' ?sticky: ' + articles[i].sticky;
+    views.textContent = ' Просмотров: ' + articles[i].views;
+    publishedAt.textContent = ' Опубликовано: ' + articles[i].published_at;
+
+
+
+    id.appendChild(title);
+    id.appendChild(description);
+    id.appendChild(createdAt);
+    id.appendChild(updatedAt);
+    id.appendChild(imageLabel);
+    id.appendChild(categoryId);
+    id.appendChild(sticky);
+    id.appendChild(views);
+    id.appendChild(publishedAt);
+
+    main.appendChild(id);
+    console.log('showArticles');
+}
+}
